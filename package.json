@@ -8,6 +8,7 @@
     "esprima-fb": "^13001.1.0-dev-harmony-fb",
     "estemplate": "^0.4.0",
     "estraverse-fb": "^1.3.0",
+    "listver": "^1.0.0",
     "source-map": "0.1.40"
   },
   "repository": {
