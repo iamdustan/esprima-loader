@@ -11,6 +11,11 @@
 var esprima = require('esprima-fb');
 var estraverse = require('estraverse-fb');
 var escodegen = require('escodegen');
+var listver = require('listver');
+
+var webpackMajorVersion = parseInt(
+  listver({includeDev: true}).webpack.split('.')[0]
+)
 
 module.exports = function(source, map) {
   if (this.cacheable) {
@@ -20,7 +25,13 @@ module.exports = function(source, map) {
   // TODO: black list
   var resourcePath = this.resourcePath;
 
-  var transforms = this.options.esprima && this.options.esprima.transforms;
+  var transforms;
+  if (webpackMajorVersion == 1) {
+    transforms = this.options.esprima && this.options.esprima.transforms;
+  }
+  else if (webpackMajorVersion == 2) {
+    transforms = this.query.transforms;
+  }
 
   if (
     typeof transforms === 'undefined' ||
